@@ -6,6 +6,8 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+const monsterHealthProgress = document.getElementById('monster-health-progress');
+const inventoryList = document.getElementById('inventory-list');
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -106,6 +108,16 @@ function update(location) {
   text.innerHTML = location.text;
 }
 
+function updateMonsterHealthBar() {
+    const monster = monsters[fighting];
+    const healthPercentage = (monsterHealth / monster.health) * 100;
+    monsterHealthProgress.style.width = healthPercentage + '%';
+  }
+
+function updateInventory() {
+    inventoryList.innerText = inventory.join(', ');
+  }
+
 function goTown() {
   update(locations[0]);
 }
@@ -138,6 +150,7 @@ function buyWeapon() {
       let newWeapon = weapons[currentWeapon].name;
       text.innerText = "You now have a " + newWeapon + ".";
       inventory.push(newWeapon);
+      updateInventory();
       text.innerText += " In your inventory you have: " + inventory;
     } else {
       text.innerText = "You do not have enough gold to buy a weapon.";
@@ -189,7 +202,8 @@ function attack() {
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
-    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+    updateMonsterHealthBar();    
   } else {
     text.innerText += " You miss.";
   }
@@ -229,6 +243,8 @@ function defeatMonster() {
   xp += monsters[fighting].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
+  animateStatChange(goldText);
+  animateStatChange(xpText);
   update(locations[4]);
 }
 

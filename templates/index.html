@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>RPG - Dragon Repeller</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
   <body>
     <div id="game">
@@ -14,6 +15,7 @@
                 <span class="stat">Health: <strong><span id="healthText">100</span></strong></span>
                 <span class="stat">Gold: <strong><span id="goldText">50</span></strong> </span>
             </div>
+            <div id="inventory">Inventory: <span id="inventory-list"></span></div>
             <div id="controls">
                 <button id="button1">Go to store</button>
                 <button id="button2">Go to cave</button>
@@ -22,6 +24,10 @@
             <div id="monsterStats">
                 <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
                 <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
+                <div id="monster-health-bar" class="health-bar">
+                    <div id="monster-health-progress" class="health-progress"></div>
+                  </div>
+                  
             </div>
             <div id="text">
                 Welcome to Dragon Repeller. 
@@ -31,6 +37,6 @@
             </div>
           </div>
     </div>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
   </html>

@@ -38,16 +38,44 @@ body {
 }
 
 button {
-  cursor: pointer;
-  color: #0a0a23;
-  background-color: #feac32;
-  background-image: linear-gradient(#fecc4c, #ffac33);
-  border: 3px solid #feac32;
-  border-radius: 5px;
-  padding: 8px 15px;
-  transition: background-color 0.3s ease;
-}
+    cursor: pointer;
+    color: #0a0a23;
+    background-color: #feac32;
+    background-image: linear-gradient(#fecc4c, #ffac33);
+    border: 3px solid #feac32;
+    border-radius: 5px;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  button:hover {
+    background-color: #ffac33;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .stat-change {
+    animation: stat-change 0.5s ease;
+  }
+  
+  @keyframes stat-change {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
 
-button:hover {
-  background-color: #ffac33;
-}
+  .health-bar {
+    width: 100%;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 5px 0;
+  }
+  
+  .health-progress {
+    height: 20px;
+    background-color: #c70d0d;
+    width: 100%;
+    transition: width 0.5s ease;
+  }
+  
