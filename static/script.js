@@ -1,4 +1,5 @@
-let xp = 0;
+document.addEventListener('DOMContentLoaded', function() {
+  let xp = 0;
 let health = 100;
 let gold = 50;
 let currentWeapon = 0;
@@ -69,7 +70,7 @@ const locations = [
   {
     name: "kill monster",
     "button text": ["Go to town square", "Go to town square", "Go to town square"],
-    "button functions": [goTown, goTown, eas],
+    "button functions": [goTown, goTown, goTown],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
   },
   {
@@ -302,3 +303,6 @@ function pick(guess) {
     }
   }
 }
+});
+
+
