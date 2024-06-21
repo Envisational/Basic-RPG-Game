@@ -47,7 +47,7 @@ const locations = [
     name: "town square",
     "button text": ["Go to store", "Go to cave", "Fight dragon"],
     "button functions": [goStore, goCave, fightDragon],
-    text: "You are in the town square. You see a sign that says \"Store\"."
+    text: "You are in the town square. You see a sign that says \"Store\", \"Cave\", and \"The Dragon's Den\". Where do you want to go?"
   },
   {
     name: "store",
@@ -69,8 +69,8 @@ const locations = [
   },
   {
     name: "kill monster",
-    "button text": ["Go to town square", "Go to town square", "Go to town square"],
-    "button functions": [goTown, goTown, goTown],
+    "button text": ["Go to town square"],
+    "button functions": [goTown],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
   },
   {
@@ -93,6 +93,7 @@ const locations = [
   }
 ];
 
+
 // initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
@@ -100,14 +101,31 @@ button3.onclick = fightDragon;
 
 function update(location) {
   monsterStats.style.display = "none";
+  
+  button1.style.display = 'inline-block';
   button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
   button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
+  
+  if (location["button text"][1]) {
+    button2.style.display = 'inline-block';
+    button2.innerText = location["button text"][1];
+    button2.onclick = location["button functions"][1];
+  } else {
+    button2.style.display = 'none';
+  }
+  
+  if (location["button text"][2]) {
+    button3.style.display = 'inline-block';
+    button3.innerText = location["button text"][2];
+    button3.onclick = location["button functions"][2];
+  } else {
+    button3.style.display = 'none';
+  }
+  
   text.innerHTML = location.text;
 }
+
+
 
 function updateMonsterHealthBar() {
     const monster = monsters[fighting];
