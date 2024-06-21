@@ -175,6 +175,14 @@ function sellWeapon() {
   }
 }
 
+function animateStatChange(element) {
+  element.classList.add('stat-change');
+  setTimeout(() => {
+    element.classList.remove('stat-change');
+  }, 500);
+}
+
+
 function fightSlime() {
   fighting = 0;
   goFight();
@@ -202,28 +210,31 @@ function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
+  
   if (isMonsterHit()) {
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
-    updateMonsterHealthBar();    
+    monsterHealth = Math.max(0, monsterHealth); // Ensure health doesn't go below 0
+    updateMonsterHealthBar();
   } else {
     text.innerText += " You miss.";
   }
+  
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
+  
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    if (fighting === 2) {
-      winGame();
-    } else {
-      defeatMonster();
-    }
+    defeatMonster(); // Ensure defeatMonster is called
   }
+  
   if (Math.random() <= .1 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
   }
 }
+
+
 
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
@@ -246,7 +257,12 @@ function defeatMonster() {
   xpText.innerText = xp;
   animateStatChange(goldText);
   animateStatChange(xpText);
-  update(locations[4]);
+
+  if (fighting === 2) {
+    winGame();
+  } else {
+    update(locations[4]);
+  }
 }
 
 function lose() {
